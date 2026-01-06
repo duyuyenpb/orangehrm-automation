@@ -42,7 +42,7 @@ def pytest_runtest_makereport(item, call):
         driver = item.funcargs.get('driver', None)
         
         if driver:
-            print(f"\n📸 Taking screenshot for failed test: {item.name}")
+            logging.info(f"\n📸 Taking screenshot for failed test: {item.name}")
             # Chụp ảnh và attach vào Allure
             allure.attach(
                 driver.get_screenshot_as_png(),

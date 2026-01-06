@@ -112,6 +112,7 @@ orangehrm-automation/
    pytest --alluredir=reports/allure-results
    allure serve reports/allure-results
    ```  
+   After deployment, view the published Allure reports at: [https://duyuyennpb.github.io/orangehrm-automation/](https://duyuyennpb.github.io/orangehrm-automation/)
 
 5. **Additional Notes**  
    - Ensure Chrome is installed for Selenium tests.

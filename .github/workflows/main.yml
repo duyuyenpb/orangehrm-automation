@@ -44,7 +44,7 @@ jobs:
       # Bước E: Tạo Allure Report & Publish lên GitHub Pages
       # Sử dụng action có sẵn của cộng đồng để build report HTML
       - name: Get Allure history
-        uses: actions/checkout@vv4
+        uses: actions/checkout@v4
         if: always()
         continue-on-error: true
         with:

@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
+import allure
 
 class DashboardPage(BasePage):
     # --- LOCATORS ---

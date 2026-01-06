@@ -28,3 +28,24 @@ def driver():
     yield driver
     
     driver.quit()
+
+# --- PHẦN MỚI: HOOK CHỤP ẢNH ---
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    # Execute all other hooks to obtain the report object
+    outcome = yield
+    rep = outcome.get_result()
+
+    # Chỉ xử lý nếu test case kết thúc (call) và bị Fail
+    if rep.when == "call" and rep.failed:
+        # Lấy driver từ fixture
+        driver = item.funcargs.get('driver', None)
+        
+        if driver:
+            print(f"\n📸 Taking screenshot for failed test: {item.name}")
+            # Chụp ảnh và attach vào Allure
+            allure.attach(
+                driver.get_screenshot_as_png(),
+                name="Screenshot_on_Failure",
+                attachment_type=allure.attachment_type.PNG
+            )

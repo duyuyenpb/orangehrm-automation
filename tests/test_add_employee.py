@@ -14,13 +14,13 @@ class TestAddEmployee:
         login_page = LoginPage(driver)
         login_page.do_login(USERNAME, PASSWORD)
         
-        # 2. Verify đã vào Dashboard & Navigate sang PIM
+        # 2. Verify entered Dashboard & Navigate to PIM
         dashboard_page = DashboardPage(driver)
-        assert dashboard_page.get_dashboard_title() == "Dashboard" # Check chắc chắn đã login
+        assert dashboard_page.get_dashboard_title() == "Dashboard" # Ensure login is successful
         
-        dashboard_page.navigate_to_pim_module() # Chuyển trang
+        dashboard_page.navigate_to_pim_module() # Navigate to page
         
-        # 3. Thao tác trên trang PIM
+        # 3. Operate on PIM page
         pim_page = PIMPage(driver)
         pim_page.add_new_employee("Test", "User 01")
         

@@ -4,22 +4,22 @@ import allure
 
 class DashboardPage(BasePage):
     # --- LOCATORS ---
-    # Tiêu đề "Dashboard" nằm trên thanh header (dùng để verify login thành công)
+    # "Dashboard" title on the header bar (used to verify successful login)
     PAGE_HEADER = (By.XPATH, "//h6[normalize-space()='Dashboard']")
     
-    # Menu bên trái để điều hướng sang các trang khác
+    # Left menu to navigate to other pages
     MENU_PIM = (By.XPATH, "//span[text()='PIM']")
     MENU_ADMIN = (By.XPATH, "//span[text()='Admin']")
 
     # --- ACTIONS ---
     @allure.step("Get dashboard page title")
     def get_dashboard_title(self):
-        """Lấy text tiêu đề trang. Mong đợi trả về: 'Dashboard'"""
+        """Get the page title text. Expected return: 'Dashboard'"""
         return self.get_element_text(self.PAGE_HEADER)
 
     @allure.step("Navigate to PIM module")
     def navigate_to_pim_module(self):
-        """Click menu PIM để chuyển sang trang Nhân viên"""
+        """Click PIM menu to go to Employee page"""
         self.do_click(self.MENU_PIM)
-        # Lưu ý: Logic chuyển trang nằm ở đây. 
-        # Sau khi hàm này chạy xong, ở file Test chúng ta sẽ khởi tạo PIMPage.
+        # Note: Page navigation logic is here. 
+        # After this function runs, in the Test file we will initialize PIMPage.

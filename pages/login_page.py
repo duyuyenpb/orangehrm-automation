@@ -17,5 +17,5 @@ class LoginPage(BasePage):
     
     @allure.step("Check if login is successful")
     def is_login_successful(self):
-        # Kiểm tra xem URL có chứa chữ dashboard không
+        # Check if the URL contains "dashboard"
         return "dashboard" in self.driver.current_url

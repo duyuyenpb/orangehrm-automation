@@ -6,22 +6,22 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 @pytest.fixture(scope="function")
 def driver():
-    # 1. Thiết lập Options cho Chrome
+    # 1. Set up Options for Chrome
     options = Options()
     
-    # --- CẤU HÌNH QUAN TRỌNG CHO GITHUB CODESPACES / CI/CD ---
-    options.add_argument("--headless")  # Chạy không giao diện
-    options.add_argument("--no-sandbox") # Bắt buộc trên Linux/Docker
-    options.add_argument("--disable-dev-shm-usage") # Tránh lỗi thiếu bộ nhớ trên container
-    options.add_argument("--window-size=1920,1080") # Set size ảo để không bị lỗi UI responsive
+    # --- IMPORTANT CONFIGURATION FOR GITHUB CODESPACES / CI/CD ---
+    options.add_argument("--headless")  # Run without interface
+    options.add_argument("--no-sandbox") # Mandatory on Linux/Docker
+    options.add_argument("--disable-dev-shm-usage") # Avoid memory shortage errors on container
+    options.add_argument("--window-size=1920,1080") # Set virtual size to avoid UI responsive errors
     # ---------------------------------------------------------
 
-    # 2. Khởi tạo Driver
-    # Webdriver Manager sẽ tự tải chromedriver phù hợp với bản Chrome vừa cài ở Bước 1
+    # 2. Initialize Driver
+    # Webdriver Manager will automatically download the appropriate chromedriver for the Chrome version installed in Step 1
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
     
-    # driver.maximize_window() -> Không cần thiết trong headless, đã set window-size ở trên
+    # driver.maximize_window() -> Not necessary in headless, window-size already set above
     
     driver.get("https://opensource-demo.orangehrmlive.com/")
     
@@ -29,21 +29,21 @@ def driver():
     
     driver.quit()
 
-# --- PHẦN MỚI: HOOK CHỤP ẢNH ---
+# --- NEW PART: SCREENSHOT HOOK ---
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     # Execute all other hooks to obtain the report object
     outcome = yield
     rep = outcome.get_result()
 
-    # Chỉ xử lý nếu test case kết thúc (call) và bị Fail
+    # Only process if test case ends (call) and fails
     if rep.when == "call" and rep.failed:
-        # Lấy driver từ fixture
+        # Get driver from fixture
         driver = item.funcargs.get('driver', None)
         
         if driver:
             logging.info(f"\n📸 Taking screenshot for failed test: {item.name}")
-            # Chụp ảnh và attach vào Allure
+            # Take screenshot and attach to Allure
             allure.attach(
                 driver.get_screenshot_as_png(),
                 name="Screenshot_on_Failure",

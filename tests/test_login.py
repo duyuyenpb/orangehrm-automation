@@ -4,5 +4,5 @@ def test_login_successfully(driver):
     login_page = LoginPage(driver)
     login_page.do_login("Admin", "admin123")
     login_page.is_login_successful()
-    # Assert title hoặc URL để verify
+    # Assert title or URL to verify
     assert "dashboard" in driver.current_url

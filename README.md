@@ -1,6 +1,6 @@
 # 🍊 OrangeHRM Automation Framework
 
-![Build Status](https://img.shields.io/github/actions/workflow/status/<your-username>/orangehrm-automation/main.yml?style=flat-square)
+![Build Status](https://img.shields.io/github/actions/workflow/status/duyuyenpb/orangehrm-automation/main.yml?style=flat-square)
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?style=flat-square&logo=python)
 ![Selenium](https://img.shields.io/badge/Selenium-4.0+-green?style=flat-square&logo=selenium)
 ![Pytest](https://img.shields.io/badge/Pytest-7.0+-yellow?style=flat-square&logo=pytest)
